@@ -13,11 +13,11 @@
 </head>
 <body class="bg-light">
     <div class="container">
-        <div class="row">
+        <div id="app" class="row">
             <div class="col-6 offset-3 bg-white pt-5 pb-5">
                 <h1 class="text-center">パスワードメーカー</h1>
-
-                <input type="text" class="form-control mt-5 form-control-lg text-center">
+                <!-- :value="" でVue.js -->
+                <input type="text" class="form-control mt-5 form-control-lg text-center"  id="output" readonly :value="password">
 
                 <div class="row mt-5">
                     <div class="col-8 offset-2">
@@ -65,5 +65,43 @@
             </div>
         </div>
     </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <script>
+        const passwordMaker = {
+            data() {
+                return {
+                    // big_alpha: true,
+                    // small_alpha: true,
+                    // numbers: true,
+                    // symbols: true,
+                    // length: 10
+                }
+            },
+            computed: {
+                password() {
+                    const big_alpha_string = 'ABCDEFGHJKLMNPQRSTUVWXYZ'
+
+                    let source = big_alpha_string
+                    let rand = Math.floor(Math.random() * source.length)
+
+                    let ret = ''
+                    for(let i=0; i<10; i++){
+                        let rand = Math.floor(Math.random() * source.length)
+                        ret += source.substr(rand, 1)
+                    }
+
+                    // big_alpha_stringの値をランダムで表示する
+                    return ret
+                }
+            }
+        }
+
+        Vue.createApp(passwordMaker).mount('#app')
+    </script>
+
+
+
 </body>
 </html>
